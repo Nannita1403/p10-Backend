@@ -16,7 +16,7 @@ const isAuth = async (req,res,next) => {
 };
 
 const isAdmin = async (req,res,next) =>{
-    if(user.role === "admin") {
+    if(req.user.role === "admin") {
         next();
     } else {
         return res.status(400).json("No eres Admin")
