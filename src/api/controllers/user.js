@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const { generarLlave } = require("../../utils/jwt");
+const { hashPassword } = require("../../utils/hashPassword");
 
 
 const getUsers = async (req,res,next) => {
@@ -22,11 +23,8 @@ const getUserbyID = async (req,res,next) => {
 };
 const register = async (req,res,next) => {
      try {
-        const newUser = new User({
-            username : req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-        });
+        const newUser = new User(req.body);
+
         newUser.role = "user";
 
         const emailDuplicated = await User.findOne({ email: req.body.email });
@@ -38,6 +36,8 @@ const register = async (req,res,next) => {
           return res.status(400).json("Usuario ya existente");
         }
 
+        newUser.password= hashPassword(req.body.password);
+
         const savedUser = await newUser.save();
         return res.status(201).json(savedUser);
     } catch (error) {
@@ -46,11 +46,12 @@ const register = async (req,res,next) => {
 };
 const login = async (req,res,next) => {
     try {
-        const user = await User.findOne({username: req.body.username});
+        const {username, email, password} = req.body;
+        const user = await User.findOne({username}).populate("events");
         if (!user) {
             return res.status(400).json("Usuario o contraseña incorrectos");
         } 
-       if (bcrypt.compareSync(req.body.password, user.password)) {
+       if (bcrypt.compareSync(password, user.password)) {
                 const token = generarLlave(user._id);
                 return res.status(200).json({ user, token });
         }else{
@@ -74,10 +75,11 @@ const updateUser = async (req,res,next) => {
 
         const oldUser = await User.findById(id);
         newUser._id = id;
+        newUser.password = bcrypt.hashSync(newUser.password, 10);
         newUser.events = [...oldUser.events, ...newUser.events];
         
         const user = await User.findByIdAndUpdate(id, newUser, { new: true });
-        return res.status(200).json(user);
+        return res.status(200).json("Usuario actualizado correctamente", user);
     } catch (error) {
         return res.status(400).json("error en el update del User");
     }
