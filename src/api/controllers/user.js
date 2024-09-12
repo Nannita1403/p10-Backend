@@ -24,17 +24,10 @@ const getUserbyID = async (req,res,next) => {
 const register = async (req,res,next) => {
      try {
         const newUser = new User(req.body);
-
         newUser.role = "user";
 
-        const emailDuplicated = await User.findOne({ email: req.body.email });
-        if (emailDuplicated) {
-          return res.status(400).json("Usuario ya existente con ese email");
-        }
-        const nameDuplicated = await User.findOne({ email: req.body.username });
-        if (nameDuplicated) {
-          return res.status(400).json("Usuario ya existente");
-        }
+        const userDuplicated = await User.findOne({ email: req.body.email });
+        if (userDuplicated) return res.status(400).json("Usuario ya existente con ese email");
 
         newUser.password= hashPassword(req.body.password);
 

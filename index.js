@@ -18,10 +18,6 @@ app.use(cors());
 app.use(express.json());    
 
 app.use('/api/v1', mainRouter);
-/*
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/events', eventRouter);
-app.use('/api/v1/artists', artistRouter);*/
 
 app.use("*", (req,res,next)=> {
     const error = new Error('Route not found');
