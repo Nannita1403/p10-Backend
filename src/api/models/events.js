@@ -8,9 +8,9 @@ const eventSchema = new mongoose.Schema(
     price: {type: Number, require: true },
     description: { type: String, trim: false },
     img: { type: String, trim: true },
-    assistants: [{ type: mongoose.Types.ObjectId, ref:"users"}],
-    artist: { type: mongoose.Types.ObjectId, ref: "artists" },
-    organizer: { type: mongoose.Types.ObjectId, ref: "users" , require: false},
+    assistants: [{ type: mongoose.Types.ObjectId, ref:"User"}],
+    artist: { type: mongoose.Types.ObjectId, ref: "Artist" },
+    organizer: { type: mongoose.Types.ObjectId, ref: "User" , require: false},
     category: {
       type:String, require: true, 
       enum: [ "Pop", "Rock", "Indie", "Electronica", "Reggae", "Metal", "Mix"]
@@ -22,5 +22,5 @@ const eventSchema = new mongoose.Schema(
   }
 );
 
-const Event = mongoose.model("events", eventSchema, "events");
+const Event = mongoose.model("Event", eventSchema);
 module.exports = Event;

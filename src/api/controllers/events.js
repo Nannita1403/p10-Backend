@@ -22,7 +22,7 @@ const postEvent = async (req,res,next) => {
             //La persona que crea el evento queda registrada como organizador.
             newEvent.organizer = req.user.id;
             const savedEvent = await newEvent.save();
-            const populatedEvent = await Event.findById(savedEvent.id).populate("artists");
+            const populatedEvent = await Event.findById(savedEvent.id).populate("Artist");
             return res.status(201).json({ message:"Evento creado correctamente", event: populatedEvent });          
     } catch (error) {
         return res.status(400).json(console.log(error));
@@ -30,7 +30,7 @@ const postEvent = async (req,res,next) => {
 };
 const getEvents = async (req,res,next) => {
     try {
-        const allEvents = await Event.find()//.populate("artists");
+        const allEvents = await Event.find().populate("Artist");
         return res.status(200).json(allEvents);
     } catch (error) {
         return res.status(400).json("error");
@@ -39,7 +39,7 @@ const getEvents = async (req,res,next) => {
 const getEventbyID = async (req,res,next) => {
     try {
         const {id} =req.params;
-        const event = await Event.findById(id).populate("artists", "users");
+        const event = await Event.findById(id).populate("Artist", "User");
         return res.status(200).json(event);
     } catch (error) {
         return res.status(400).json("error en la busqueda por Id");
@@ -59,7 +59,7 @@ const getEventbyPrice = async (req,res,next) => {
 const getEventbyAssistant = async (req,res,next) => {
     try {
         const userId= req.params.id;
-        const eventAssistant = await Event.find({assistants:userId}).populate("assistants","artists");
+        const eventAssistant = await Event.find({assistants:userId}).populate("assistants","Artist");
         return res.status(200).json(eventAssistant);
      } catch (error) {
         return res.status(400).json("Error en la carga por Assistants");
@@ -119,7 +119,7 @@ const updateEvent = async (req,res,next) => {
     
           const eventUpdate = await Event.findByIdAndUpdate(id, newEvent, {
             new: true,
-          }.populate("artists","users", "organizer"));
+          }.populate("Artist","User", "organizer"));
           return res.status(200).json({mensaje:"Evento Actualizado", event:eventUpdate});
         } catch (error) {
           return res.status(400).json(error);

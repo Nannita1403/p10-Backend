@@ -40,7 +40,7 @@ const register = async (req,res,next) => {
 const login = async (req,res,next) => {
     try {
         const {username, email, password} = req.body;
-        const user = await User.findOne({username}).populate("events");
+        const user = await User.findOne({username}).populate("Event");
         if (!user) {
             return res.status(400).json("Usuario o contraseña incorrectos");
         } 
