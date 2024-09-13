@@ -9,7 +9,7 @@ const eventSchema = new mongoose.Schema(
     description: { type: String, trim: false },
     img: { type: String, trim: true },
     assistants: [{ type: mongoose.Types.ObjectId, ref:"User"}],
-    artist: { type: mongoose.Types.ObjectId, ref: "Artist" },
+    artist: [{ type: mongoose.Types.ObjectId, ref: "Artist" }],
     organizer: { type: mongoose.Types.ObjectId, ref: "User" , require: false},
     category: {
       type:String, require: true, 
