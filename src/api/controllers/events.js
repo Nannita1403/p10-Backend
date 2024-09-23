@@ -30,7 +30,7 @@ const postEvent = async (req,res,next) => {
 };
 const getEvents = async (req,res,next) => {
     try {
-        const allEvents = await Event.find().populate("Artist");
+        const allEvents = await Event.find()
         return res.status(200).json(allEvents);
     } catch (error) {
         return res.status(400).json("error");
