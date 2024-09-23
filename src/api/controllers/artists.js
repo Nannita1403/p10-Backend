@@ -1,5 +1,5 @@
+const deleteFromCloudinary = require("../../utils/deleteFiles");
 const Artist = require("../models/artists");
-const Event = require("../models/events");
 
 const postArtist = async (req,res,next) => {
     try {
@@ -81,7 +81,7 @@ const deleteArtist = async (req,res,next) => {
         const {id} = req.params;
         const artistDeleted = await Artist.findByIdAndDelete(id);
         artistDeleted.img.forEach((url)=>{
-            deleteFromCloudinary(url);
+        deleteFromCloudinary(url);
         });
         
         return res.status(200).json({message:"Artista Eliminado", event: artistDeleted});
