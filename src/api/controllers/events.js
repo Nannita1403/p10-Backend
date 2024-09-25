@@ -102,12 +102,11 @@ const updateEvent = async (req,res,next) => {
             newEvent.organizer = oldEvent.organizer;
            }
     
-          const eventUpdate = await Event.findByIdAndUpdate(id, newEvent, {
+          const eventUpdate = await Event.findByIdAndUpdate(id,newEvent, {
             new: true,
-          })
-          //.populate('artist')
-          //.populate('assistants', 'username')
-          //.populate('organizer', 'username');
+          }).populate('artist')
+          .populate('assistants', 'username')
+          .populate('organizer', 'username');
           return res.status(200).json({mensaje:"Evento Actualizado", event:eventUpdate});
         } catch (error) {
           console.log(error)
