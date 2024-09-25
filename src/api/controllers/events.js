@@ -82,13 +82,13 @@ const getEventbyLocation = async (req,res,next) => {
 const updateEvent = async (req,res,next) => {
         try {
           const isOrganizer = req.user.isOrganizer;
-          const { id } = req.params;
+          const { idEvent } = req.params;
           const newEvent = new Event (req.body);
-          const oldEvent = await Event.findById(id);
+          const oldEvent = await Event.findById(idEvent);
           if(!oldEvent){
             return res.status(404).json("Evento no encontrado");
           }
-          newEvent._id = id;
+          newEvent._id = idEvent;
           newEvent.assistants= checkForDuplicates(oldEvent.assistants,newEvent.assistants);
 
           if (req.file) {
@@ -102,7 +102,7 @@ const updateEvent = async (req,res,next) => {
             newEvent.organizer = oldEvent.organizer;
            }
     
-          const eventUpdate = await Event.findByIdAndUpdate(id,newEvent, {
+          const eventUpdate = await Event.findByIdAndUpdate(idEvent,newEvent, {
             new: true,
           }).populate('artist')
           .populate('assistants', 'username')
