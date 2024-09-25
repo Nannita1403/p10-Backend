@@ -12,11 +12,6 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId, 
         ref: "Artist", require: false }
       ],
-    events: [ 
-      { 
-        type: mongoose.Types.ObjectId, 
-        ref: "Event", require: false } 
-      ],
     role: { 
       type: String,
       trim: true,
