@@ -1,5 +1,6 @@
 const deleteFromCloudinary = require("../../utils/deleteFiles");
 const Artist = require("../models/artists");
+const Event = require("../models/events");
 
 const postArtist = async (req,res,next) => {
     try {

@@ -52,8 +52,8 @@ const getEventbyID = async (req,res,next) => {
 };
 const getEventbyAssistant = async (req,res,next) => {
     try {
-        const userId= req.params.id;
-        const eventAssistant = await Event.find({assistants:userId})
+        const id= req.params.id;
+        const eventAssistant = await Event.find({assistants:id})
         .populate('assistants')
         .populate('artist');
         return res.status(200).json(eventAssistant);
@@ -82,13 +82,13 @@ const getEventbyLocation = async (req,res,next) => {
 const updateEvent = async (req,res,next) => {
         try {
           const isOrganizer = req.user.isOrganizer;
-          const { idEvent } = req.params;
+          const { eventID } = req.params.id;
           const newEvent = new Event (req.body);
-          const oldEvent = await Event.findById(idEvent);
+          const oldEvent = await Event.findById(eventID);
           if(!oldEvent){
             return res.status(404).json("Evento no encontrado");
           }
-          newEvent._id = idEvent;
+          newEvent._id = eventID;
           newEvent.assistants= checkForDuplicates(oldEvent.assistants,newEvent.assistants);
 
           if (req.file) {
@@ -102,7 +102,7 @@ const updateEvent = async (req,res,next) => {
             newEvent.organizer = oldEvent.organizer;
            }
     
-          const eventUpdate = await Event.findByIdAndUpdate(idEvent,newEvent, {
+          const eventUpdate = await Event.findByIdAndUpdate(eventID,newEvent, {
             new: true,
           }).populate('artist')
           .populate('assistants', 'username')

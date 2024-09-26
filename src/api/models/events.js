@@ -8,9 +8,13 @@ const eventSchema = new mongoose.Schema(
     price: {type: Number, require: true },
     description: { type: String, trim: false },
     img: { type: String, trim: true },
-    assistants: [{ type: mongoose.Types.ObjectId, ref: "User"}],
+    assistants: [{ type: mongoose.Types.ObjectId, ref:"User"}],
     artist: [{ type: mongoose.Types.ObjectId, ref: "Artist" }],
-    organizer: { type: mongoose.Types.ObjectId, ref: "User" , require: false}
+    organizer: { type: mongoose.Types.ObjectId, ref: "User" , require: false},
+    category: {
+      type:String, require: true, 
+      enum: [ "Pop", "Rock", "Indie", "Electronica", "Reggae", "Metal", "Mix"]
+        }
   },
   {
     timestamps: true,

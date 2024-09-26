@@ -90,6 +90,7 @@ const deleteUser = async (req,res,next) => {
         if (req.user.id === id || req.user.role === "admin") {
         const userDeleted = await User.findByIdAndDelete(id);
         deleteFromCloudinary(deleteUser.profilePic)
+
         
         return res.status(200).json({message:"User Eliminado", event: userDeleted});
     } else {
