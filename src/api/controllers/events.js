@@ -31,7 +31,6 @@ const postEvent = async (req,res,next) => {
 };
 const getEvents = async (req,res,next) => {
     try {
-       console.log("aqui")
         const allEvents = await Event.find()
         .populate('assistants', 'username favArtist')
         .populate('artist');
@@ -43,11 +42,14 @@ const getEvents = async (req,res,next) => {
 const getEventbyID = async (req,res,next) => {
     try {
         const {id} =req.params;
-        const event = await Event.findById(id)
-        .populate('artist');
+        const event = await Event.findById(id).populate([
+          { path: 'assistants' },
+          { path: 'organizer' },
+          { path: 'artist' }]);
         return res.status(200).json(event);
     } catch (error) {
-        return res.status(400).json("error en la busqueda por Id");
+      console.error(`Error muestra del evento con: ${id}`, error);
+        return res.status(400).json(`error en la busqueda por Id: ${id}`);
     }
 };
 const getEventbyAssistant = async (req,res,next) => {
@@ -79,9 +81,13 @@ const getEventbyLocation = async (req,res,next) => {
         return res.status(400).json("Error en la busqueda por Location");
      }
 };
+
 const updateEvent = async (req,res,next) => {
         try {
+          console.log("Soy organizador?");
+          
           const isOrganizer = req.user.isOrganizer;
+          console.log("Pase por aqui");
           const { eventID } = req.params.id;
           const newEvent = new Event (req.body);
           const oldEvent = await Event.findById(eventID);
