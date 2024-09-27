@@ -17,6 +17,8 @@ const isAuth = async (req,res,next) => {
         req.user = user;
         next();
     } catch (error) {
+        console.log(error, "Error desde el Auth isAuth");
+        
         return res.status(400).json("No estas autorizado para esta acción");
     }
 };
@@ -30,6 +32,8 @@ const isAdmin = async (req,res,next) =>{
         : (req.user.isAdmin === false);
         next();
     } catch (error) {
+        console.log(error, "Error desde el Auth isAdmin");
+        
         return next(error);
     }
 };
@@ -44,6 +48,7 @@ const isAdmin = async (req,res,next) =>{
 const isOrganizer = async (req,res,next) =>{
 try {
     console.log("Desde Organizer");
+    console.log(req.params.id)
     req.user.isOrganizer = false;
     const eventId = req.params.id;
     const event = await Event.findById(eventId).populate("organizer");

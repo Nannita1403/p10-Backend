@@ -6,9 +6,9 @@ const eventRouter = require("express").Router();
 eventRouter.post("/",isAuth, postEvent);
 eventRouter.get("/", getEvents);
 eventRouter.get("/:id",isAuth, getEventbyAssistant);
-eventRouter.put("/:id",isAuth, isOrganizer, updateEvent);
+eventRouter.put("/:id",isAuth,isAdmin, updateEvent);
 eventRouter.put("/removeAssistant/:id", isAuth, deleteAssistant);
-eventRouter.delete("/:id",isAuth, isOrganizer, isAdmin, deleteEvent);
+eventRouter.delete("/:id",isAuth, isAdmin, deleteEvent);
 
 module.exports = eventRouter;
 
