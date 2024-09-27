@@ -9,8 +9,8 @@ eventRouter.get("/:id", getEventbyID);
 eventRouter.get("/:assistants",isAdmin, isOrganizer, getEventbyAssistant);
 eventRouter.get("/artist/:artist", getEventbyArtist);
 eventRouter.get("/location/:location", getEventbyLocation);
-eventRouter.put("/:id",isAuth, isAdmin, isOrganizer, updateEvent);
-eventRouter.put("/:id/removeAssistant", isAdmin, isOrganizer, deleteAssistant);
+eventRouter.put("/:id",isAuth, isAdmin, updateEvent);
+eventRouter.put("/removeAssistant/:id", isAuth, isAdmin, deleteAssistant);
 eventRouter.delete("/:id",isAdmin, deleteEvent);
 
 module.exports = eventRouter;
