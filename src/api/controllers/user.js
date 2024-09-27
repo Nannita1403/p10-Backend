@@ -14,15 +14,6 @@ const getUsers = async (req,res,next) => {
         return res.status(400).json("Error al recolectar los Usuarios");
     }
 };
-const getUserbyID = async (req,res,next) => {
-    try {
-        const {idUser} =req.params;
-        const user= await User.findById(idUser);
-        return res.status(200).json(user);
-    } catch (error) {
-        return res.status(400).json(`Error al encontar tu User: ${id}`);
-    }
-};
 const register = async (req,res,next) => {
      try {
         const newUser = new User(req.body);
@@ -61,7 +52,6 @@ const updateUser = async (req,res,next) => {
     try {
         const { id } = req.params;
         const newUser = new User(req.body);
-
         newUser.role = "user";
         if (req.user.role === "admin") {
             newUser.role = req.body.role;
@@ -103,4 +93,4 @@ const deleteUser = async (req,res,next) => {
 
 
 module.exports = {
-    getUsers, getUserbyID, register, updateUser, login, deleteUser }
+    getUsers, register, updateUser, login, deleteUser }

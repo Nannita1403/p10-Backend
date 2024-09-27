@@ -39,19 +39,6 @@ const getEvents = async (req,res,next) => {
         return res.status(400).json("error");
     }
 };
-const getEventbyID = async (req,res,next) => {
-    try {
-        const {id} =req.params;
-        const event = await Event.findById(id).populate([
-          { path: 'assistants' },
-          { path: 'organizer' },
-          { path: 'artist' }]);
-        return res.status(200).json(event);
-    } catch (error) {
-      console.error(`Error muestra del evento con: ${id}`, error);
-        return res.status(400).json(`error en la busqueda por Id: ${id}`);
-    }
-};
 const getEventbyAssistant = async (req,res,next) => {
     try {
         const userId= req.params.id;
@@ -63,25 +50,6 @@ const getEventbyAssistant = async (req,res,next) => {
         return res.status(400).json("Error en la carga por Assistants");
      }
 };
-const getEventbyArtist = async (req,res,next) => {
-    try {
-        const {artist}= req.params;
-        const eventArtist = await Event.findOne({artist:artist});
-        return res.status(200).json(eventArtist);
-     } catch (error) {
-        return res.status(400).json("Error en la busqueda por Artista");
-     }
-};
-const getEventbyLocation = async (req,res,next) => {
-    try {
-        const {location}= req.params;
-        const eventsLocation = await Event.find({location:location});
-        return res.status(200).json(eventsLocation);
-     } catch (error) {
-        return res.status(400).json("Error en la busqueda por Location");
-     }
-};
-
 const updateEvent = async (req,res,next) => {
         try {
           const isOrganizer = req.user.isOrganizer;
@@ -141,11 +109,9 @@ const deleteAssistant = async (req,res,next) => {
 const deleteEvent = async (req,res,next) => {
     try {
         if (req.user.isAdmin || req.user.isOrganizer) {
-        const { idEvent } = req.params;
-        const deletedEvent = await Event.findByIdAndDelete(idEvent);
-        deletedEvent.img.forEach((url)=>{
-            deleteFromCloudinary(url);
-        });
+        const { id } = req.params;
+        const deletedEvent = await Event.findByIdAndDelete(id);
+        
         if(deletedEvent) {
             return res.status(200).json({message:"Evento Eliminado", event: deletedEvent});
         } else {
@@ -154,7 +120,9 @@ const deleteEvent = async (req,res,next) => {
             : res.status(401).json("Necesitas autorización para realizar esta acción.");
         }}
       } catch (error) {
+        console.log(error);
+        
         return res.status(400).json("error")}
     };
 
-    module.exports = { postEvent, getEvents, getEventbyID, getEventbyArtist, getEventbyAssistant, getEventbyLocation, updateEvent, deleteAssistant, deleteEvent }
+    module.exports = { postEvent, getEvents, getEventbyAssistant, updateEvent, deleteAssistant, deleteEvent }
