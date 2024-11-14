@@ -108,13 +108,13 @@ const deleteAssistant = async (req,res,next) => {
         newAssistantList.splice(event.assistants.indexOf(req.user._id), 1);
         console.log('lista nueva:', newAssistantList);
         console.log('lista vieja', event.assistants);
-        const updatedEvent = await Event.findByIdAndUpdate(
+        const eventUpdate = await Event.findByIdAndUpdate(
           id,
           { assistants: newAssistantList },
           { new: true }
         );
         return res
-          .status(200).json({ message: 'Evento actualizado correctamente',updatedEvent });
+          .status(200).json({ message: 'Evento actualizado correctamente',eventUpdate });
       } catch (error) {
         console.log(error)
         return res.status(400).json(error);
