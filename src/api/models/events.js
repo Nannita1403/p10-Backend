@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema(
     location: { type: String, trim: true },
     price: {type: Number, require: true },
     description: { type: String, trim: false },
-    img: { type: String, trim: true },
+    image: { type: String, trim: true },
     assistants: [{ type: mongoose.Types.ObjectId, ref:"User"}],
     artist: [{ type: mongoose.Types.ObjectId, ref: "Artist" }],
     organizer: { type: mongoose.Types.ObjectId, ref: "User" , require: false},
