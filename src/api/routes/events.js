@@ -1,4 +1,5 @@
 const { isAdmin, isAuth, isOrganizer } = require("../../middlewares/auth");
+const { uploadEvento } = require("../../middlewares/uploadFiles");
 const { getEvents, getEventbyAssistant, postEvent, updateEvent, deleteEvent, deleteAssistant, getEventByCategory } = require("../controllers/events");
 
 const eventRouter = require("express").Router();
