@@ -1,7 +1,7 @@
 const springEvents = [
   {
       name: 'Primavera Sound',
-      date: '2025-02-02',
+      date: '2026-02-02',
       location: 'Barcelona',
       price: 156,
       description:
@@ -11,7 +11,7 @@ const springEvents = [
   },
   {
     name: 'Mad Cool',
-    date: '2025-01-21',
+    date: '2026-01-21',
     location: 'Madrid',
     price: 206,
     description:
@@ -21,7 +21,7 @@ const springEvents = [
   },
   {
     name: 'Bilbao BBK Live',
-    date: '2024-09-14',
+    date: '2026-09-14',
     location: 'Bilbao',
     price: 56,
     description:
@@ -31,7 +31,7 @@ const springEvents = [
   },
   {
     name: 'FIB - Festival Internacional de Benicàssim',
-    date: '2024-11-18',
+    date: '2026-11-18',
     location: 'Benicàssim',
     price: 25,
     description:
@@ -41,7 +41,7 @@ const springEvents = [
   },
   {
     name: 'Cruilla',
-    date: '2024-12-20',
+    date: '2026-12-20',
     location: 'Barcelona',
     price: 152,
     description:
@@ -51,7 +51,7 @@ const springEvents = [
   },
   {
     name: 'Arenal Sound',
-    date: '2024-10-01',
+    date: '2026-10-01',
     location: 'Burriana',
     price: 206,
     description:
@@ -61,7 +61,7 @@ const springEvents = [
   },
   {
     name: 'Low Festival',
-    date: '2024-12-26',
+    date: '2026-12-26',
     location: 'Benidorm',
     price: 70,
     description:
@@ -71,7 +71,7 @@ const springEvents = [
   },
   {
     name: 'Download Festival Madrid',
-    date: '2024-12-28',
+    date: '2026-12-28',
     location: 'Madrid',
     price: 35,
     description:
