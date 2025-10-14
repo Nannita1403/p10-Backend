@@ -37,14 +37,7 @@ const isAdmin = async (req,res,next) =>{
         return next(error);
     }
 };
-    /*
-    if(req.user.role === "admin") {
-        next();
-    } else {
-        return res.status(400).json("No eres Admin")
-    }
-};*/
-
+   
 const isOrganizer = async (req,res,next) =>{
 try {
     console.log("Desde Organizer");
