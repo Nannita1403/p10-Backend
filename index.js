@@ -8,26 +8,26 @@ const mainRouter = require("./src/api/routes/main");
 const app = express();
 const PORT = 3000;
 
-const allowedOrigins = [
-  'https://p10-frontend.vercel.app', // versión deployada
-  'http://localhost:3000', //Localhost para desarrollo
-];
+const allowedOrigins = [ 'https://p10-frontend.vercel.app'];
 
 connectDB();
 connectCloudinary();
 
 app.use(cors({
   origin: function(origin, callback){
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      const msg = 'El CORS no está permitido para este origen';
-      return callback(new Error(msg), false);
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS no permitido para este origen'));
     }
-    return callback(null, true);
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  credentials: true
 }));
+
+app.options('*', cors());
 
 app.use(express.json());    
 
