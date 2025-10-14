@@ -3,7 +3,7 @@ const { getEvents, getEventbyAssistant, postEvent, updateEvent, deleteEvent, del
 
 const eventRouter = require("express").Router();
 
-eventRouter.post("/",isAuth, postEvent);
+eventRouter.post("/",isAuth, uploadEvento, postEvent);
 eventRouter.get("/", getEvents);
 eventRouter.get("/:id",isAuth, getEventbyAssistant);
 eventRouter.put("/:id",isAuth,isAdmin, updateEvent);
