@@ -11,10 +11,7 @@ const PORT = 3000;
 connectDB();
 connectCloudinary();
 
-app.use(cors({
-  origin: "https://p10-frontend.vercel.app",
-  credentials: true,
-}));
+app.use(cors());
 
 app.use(express.json());    
 
