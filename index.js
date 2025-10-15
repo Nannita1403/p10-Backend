@@ -18,9 +18,9 @@ app.use(cors({
   origin: function(origin, callback) {
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
-      callback(null, true); 
+      return callback(null, true); 
     } else {
-      callback(new Error('CORS no permitido para este origen'));
+      return callback(new Error('CORS no permitido para este origen'));
     }
   },
   credentials: true, 
@@ -30,7 +30,9 @@ app.use(cors({
 
 app.options('*', cors({
   origin: allowedOrigins,
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 
