@@ -31,13 +31,13 @@ const springEvents = [
   },
   {
     name: 'FIB - Festival Internacional de Benicàssim',
-    date: '2026-11-18',
+    date: '2025-07-18',
     location: 'Benicàssim',
     price: 25,
     description:
       'El FIB es un festival de música que se celebra anualmente en la ciudad costera de Benicàssim, en la Comunidad Valenciana, España. Ofrece una variedad de géneros musicales, incluyendo rock, indie, electrónica y más.',
     category: 'Pop',
-    image:"https://www.culturacv.com/wp-content/uploads/2023/04/Festival-de-FIB-Benicassim-en-Benicassim-Castellon-2023.jpg",
+    image:"https://media.applausa.com/images/01JF0CGFJ63AH8X25D7QHT5AHP.webp",
   },
   {
     name: 'Cruilla',
