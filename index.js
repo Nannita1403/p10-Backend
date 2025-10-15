@@ -6,7 +6,6 @@ const { connectCloudinary } = require("./src/config/cloudinary");
 const mainRouter = require("./src/api/routes/main");
 
 const app = express();
-const PORT = 3000;
 
 const allowedOrigins = ['https://p10-frontend.vercel.app', 'http://localhost:3000'];
 
@@ -31,13 +30,10 @@ app.use(cors({
 app.options('*', cors({
   origin: allowedOrigins,
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 
 app.use(express.json());    
-
 app.use('/api/v1', mainRouter);
 
 app.use("*", (req,res,next)=> {
@@ -50,7 +46,8 @@ app.use((err, req, res, next) => {
     return res.status(err.status || 500).json(err.message || 'Unexpected error');
   });
 
-app.listen(PORT, ()=> {
-    console.log('http://localhost:'+ PORT);
-});
+//app.listen(PORT, ()=> {
+//    console.log('http://localhost:'+ PORT);
+//});
 
+module.exports = app;
